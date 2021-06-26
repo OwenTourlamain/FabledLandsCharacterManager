@@ -1,9 +1,10 @@
 import json
 
 from .item import Item
+from .exceptions import InventoryFullError
 from .constants import Abilities
 
-class Abilities:
+class AbilitiesContainter:
 
     def __init__(self, abilities_dict):
         self.charisma = abilities_dict[Abilities.CHARISMA]
@@ -21,7 +22,7 @@ class Character:
         self.name = name
         self.profession = profession
         self.rank = rank
-        self.abilities = abilities
+        self.abilities = AbilitiesContainter(abilities)
         self.inventory = inventory
         self.stamina = stamina
         self.shards = shards
@@ -44,3 +45,8 @@ class Character:
                 if item.value > bonus:
                     bonus = item.value
         return bonus
+
+    def add_item(self, item):
+        if len(self.inventory) > 11:
+            raise InventoryFullError()
+        self.inventory.append(item)
