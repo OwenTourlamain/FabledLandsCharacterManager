@@ -1,16 +1,17 @@
 import json
 
 from .item import Item
+from .abilities import Abilities
 
 class Abilities:
 
     def __init__(self, abilities_dict):
-        self.charisma = abilities_dict["charisma"]
-        self.combat = abilities_dict["combat"]
-        self.magic = abilities_dict["magic"]
-        self.sanctity = abilities_dict["sanctity"]
-        self.scouting = abilities_dict["scouting"]
-        self.thievery = abilities_dict["thievery"]
+        self.charisma = abilities_dict[Abilities.CHARISMA]
+        self.combat = abilities_dict[Abilities.COMBAT]
+        self.magic = abilities_dict[Abilities.MAGIC]
+        self.sanctity = abilities_dict[Abilities.SANCTITY]
+        self.scouting = abilities_dict[Abilities.SCOUTING]
+        self.thievery = abilities_dict[Abilities.THIEVERY]
 
 
 class Character:
@@ -33,7 +34,7 @@ class Character:
 
     @property
     def armour(self):
-        return self.get_bonus("defence")
+        return self.get_bonus(Abilities.DEFENCE)
 
 
     def get_bonus(self, ability):
