@@ -15,15 +15,15 @@ class Abilities:
 
 class Character:
 
-    def __init__(self, name, profession, rank):
+    def __init__(self, name, profession, rank, abilities, inventory, stamina, shards):
 
         self.name = name
         self.profession = profession
-        self.rank = int(rank)
-        self.abilities = self.get_abilities(self.profession, rank)
-        self.inventory = self.get_starting_items(self.profession, rank)
-        self.stamina = self.get_stamina(self.profession, rank)
-        self.shards = self.get_shards(self.profession, rank)
+        self.rank = rank
+        self.abilities = abilities
+        self.inventory = inventory
+        self.stamina = stamina
+        self.shards = shards
 
 
     @property
@@ -34,38 +34,6 @@ class Character:
     @property
     def armour(self):
         return self.get_bonus("defence")
-
-
-    def get_abilities(self, profession, rank):
-        with open("flcm/professions.json") as file:
-            professions = json.loads(file.read())
-
-        return Abilities(professions[rank][profession])
-
-
-    def get_starting_items(self, profession, rank):
-        with open("flcm/professions.json") as file:
-            professions = json.loads(file.read())
-
-        ret = []
-        for item in professions[rank]["items"]:
-            i = Item(item["name"], item["ability"], item["value"])
-            ret.append(i)
-        return ret
-
-
-    def get_stamina(self, profession, rank):
-        with open("flcm/professions.json") as file:
-            professions = json.loads(file.read())
-
-        return professions[rank]["stamina"]
-
-
-    def get_shards(self, profession, rank):
-        with open("flcm/professions.json") as file:
-            professions = json.loads(file.read())
-
-        return professions[rank]["shards"]
 
 
     def get_bonus(self, ability):
