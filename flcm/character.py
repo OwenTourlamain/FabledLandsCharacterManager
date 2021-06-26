@@ -1,6 +1,6 @@
 import json
 
-from .items import Item
+from .item import Item
 
 class Abilities:
 
