@@ -1,7 +1,7 @@
 import json
 
 from .item import Item
-from .abilities import Abilities
+from .constants import Abilities
 
 class Abilities:
 
