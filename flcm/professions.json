@@ -1,0 +1,229 @@
+{
+    "1": {
+      "items": [
+        {
+          "name": "Sword",
+          "ability": null,
+          "value": null
+        },
+        {
+          "name": "Map",
+          "ability": null,
+          "value": null
+        },
+        {
+          "name": "Leather Jerkin",
+          "ability": "defence",
+          "value": 1
+        }
+      ],
+      "shards": 16,
+      "stamina": 9,
+      "priest": {
+          "charisma": 4,
+          "combat": 2,
+          "magic": 3,
+          "sanctity": 6,
+          "scouting": 4,
+          "thievery": 2
+      },
+
+      "mage": {
+          "charisma": 2,
+          "combat": 2,
+          "magic": 6,
+          "sanctity": 1,
+          "scouting": 5,
+          "thievery": 3
+      },
+
+      "rogue": {
+          "charisma": 5,
+          "combat": 4,
+          "magic": 4,
+          "sanctity": 1,
+          "scouting": 2,
+          "thievery": 6
+      },
+
+      "troubadour": {
+          "charisma": 6,
+          "combat": 3,
+          "magic": 4,
+          "sanctity": 3,
+          "scouting": 2,
+          "thievery": 4
+      },
+
+      "warrior": {
+          "charisma": 3,
+          "combat": 6,
+          "magic": 2,
+          "sanctity": 4,
+          "scouting": 3,
+          "thievery": 2
+      },
+
+      "wayfarer": {
+          "charisma": 2,
+          "combat": 5,
+          "magic": 2,
+          "sanctity": 3,
+          "scouting": 6,
+          "thievery": 4
+
+        }
+    },
+
+    "2": {
+      "items": [
+        {
+          "name": "Sword",
+          "ability": null,
+          "value": null
+        },
+        {
+          "name": "Map",
+          "ability": null,
+          "value": null
+        },
+        {
+          "name": "Leather Jerkin",
+          "ability": "defence",
+          "value": 2
+        }
+      ],
+      "shards": 16,
+      "stamina": 13,
+      "priest": {
+          "charisma": 4,
+          "combat": 2,
+          "magic": 3,
+          "sanctity": 6,
+          "scouting": 4,
+          "thievery": 2
+      },
+
+      "mage": {
+          "charisma": 2,
+          "combat": 2,
+          "magic": 6,
+          "sanctity": 1,
+          "scouting": 5,
+          "thievery": 3
+      },
+
+      "rogue": {
+          "charisma": 5,
+          "combat": 4,
+          "magic": 4,
+          "sanctity": 1,
+          "scouting": 2,
+          "thievery": 6
+      },
+
+      "troubadour": {
+          "charisma": 6,
+          "combat": 3,
+          "magic": 4,
+          "sanctity": 3,
+          "scouting": 2,
+          "thievery": 4
+      },
+
+      "warrior": {
+          "charisma": 3,
+          "combat": 6,
+          "magic": 2,
+          "sanctity": 4,
+          "scouting": 3,
+          "thievery": 2
+      },
+
+      "wayfarer": {
+          "charisma": 2,
+          "combat": 5,
+          "magic": 2,
+          "sanctity": 3,
+          "scouting": 6,
+          "thievery": 4
+
+        }
+    },
+
+    "3": {
+      "items": [
+        {
+          "name": "Sword",
+          "ability": null,
+          "value": null
+        },
+        {
+          "name": "Map",
+          "ability": null,
+          "value": null
+        },
+        {
+          "name": "Chain Mail",
+          "ability": "defence",
+          "value": 3
+        }
+      ],
+      "shards": 40,
+      "stamina": 16,
+      "priest": {
+          "charisma": 5,
+          "combat": 3,
+          "magic": 4,
+          "sanctity": 7,
+          "scouting": 5,
+          "thievery": 2
+      },
+
+      "mage": {
+          "charisma": 3,
+          "combat": 3,
+          "magic": 7,
+          "sanctity": 1,
+          "scouting": 6,
+          "thievery": 4
+      },
+
+      "rogue": {
+          "charisma": 6,
+          "combat": 5,
+          "magic": 5,
+          "sanctity": 2,
+          "scouting": 3,
+          "thievery": 7
+      },
+
+      "troubadour": {
+          "charisma": 7,
+          "combat": 4,
+          "magic": 5,
+          "sanctity": 4,
+          "scouting": 3,
+          "thievery": 5
+      },
+
+      "warrior": {
+          "charisma": 4,
+          "combat": 7,
+          "magic": 2,
+          "sanctity": 5,
+          "scouting": 4,
+          "thievery": 5
+      },
+
+      "wayfarer": {
+          "charisma": 3,
+          "combat": 6,
+          "magic": 3,
+          "sanctity": 4,
+          "scouting": 7,
+          "thievery": 5
+
+        }
+    }
+}
