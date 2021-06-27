@@ -15,9 +15,10 @@ class AbilitiesContainter:
 
 class Character:
 
-    def __init__(self, name, profession, rank, abilities, inventory, stamina, shards):
+    def __init__(self, name, bio, profession, rank, abilities, inventory, stamina, shards):
 
         self.name = name
+        self.bio = bio
         self.profession = profession
         self.rank = rank
         self.abilities = AbilitiesContainter(abilities)
@@ -107,5 +108,3 @@ class Character:
 
     def increase_rank(self):
         self.rank += 1
-        if self.rank > 10:
-            self.rank = 10
