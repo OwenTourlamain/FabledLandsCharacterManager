@@ -1,7 +1,5 @@
-import json
-
 from .item import Item
-from .exceptions import InventoryFullError
+from .exceptions import InventoryFullError, ItemNotFoundError
 from .constants import Abilities
 
 class AbilitiesContainter:
@@ -46,7 +44,15 @@ class Character:
                     bonus = item.value
         return bonus
 
+
     def add_item(self, item):
         if len(self.inventory) > 11:
             raise InventoryFullError()
         self.inventory.append(item)
+
+
+    def remove_item(self, item):
+        if item in self.inventory:
+            self.inventory.remove(item)
+        else:
+            raise ItemNotFoundError()

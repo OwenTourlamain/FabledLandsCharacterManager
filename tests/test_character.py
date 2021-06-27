@@ -1,7 +1,7 @@
 from flcm.character import Character
 from flcm.item import Item
 from flcm.constants import Abilities, Professions
-from flcm.exceptions import InventoryFullError
+from flcm.exceptions import InventoryFullError, ItemNotFoundError
 
 import pytest
 
@@ -15,6 +15,7 @@ abilities_dict = {
     }
 
 simple_item = Item("Sword")
+copy_item = Item("Sword")
 bonus_item = Item("Map", Abilities.SCOUTING, 2)
 armour = Item("Leather", Abilities.DEFENCE, 2)
 
@@ -53,6 +54,15 @@ def test_add_item():
     for x in range(11):
         c.add_item(simple_item)
     assert len(c.inventory) == 12
-
     with pytest.raises(InventoryFullError) as e:
         c.add_item(simple_item)
+
+def test_remove_item():
+    c = Character("Test", Professions.MAGE, 1, abilities_dict, [simple_item, simple_item], 10, 15)
+    assert len(c.inventory) == 2
+    c.remove_item(simple_item)
+    assert len(c.inventory) == 1
+    c.remove_item(copy_item)
+    assert len(c.inventory) == 0
+    with pytest.raises(ItemNotFoundError) as e:
+        c.remove_item(simple_item)
