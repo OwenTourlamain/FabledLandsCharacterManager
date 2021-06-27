@@ -1,5 +1,5 @@
 from .item import Item
-from .exceptions import InventoryFullError, ItemNotFoundError
+from .exceptions import InventoryFullError, ItemNotFoundError, NotEnoughShardsError
 from .constants import Abilities
 
 class AbilitiesContainter:
@@ -23,6 +23,7 @@ class Character:
         self.abilities = AbilitiesContainter(abilities)
         self.inventory = inventory
         self.stamina = stamina
+        self.max_stamina = stamina
         self.shards = shards
 
 
@@ -56,3 +57,55 @@ class Character:
             self.inventory.remove(item)
         else:
             raise ItemNotFoundError()
+
+
+    def add_shards(self, value):
+        if value < 1:
+            raise ValueError()
+        self.shards += value
+
+
+    def spend_shards(self, value):
+        if value < 1:
+            raise ValueError()
+        elif value > self.shards:
+            raise NotEnoughShardsError()
+        self.shards -= value
+
+
+    def damage(self, value):
+        if value < 0:
+            raise ValueError()
+        self.stamina -= value
+        if self.stamina < 0:
+            self.stamina = 0
+
+
+    def heal(self, value):
+        if value < 0:
+            raise ValueError()
+        self.stamina += value
+        if self.stamina > self.max_stamina:
+            self.stamina = self.max_stamina
+
+
+    def increase_max_stamina(self, value):
+        if value < 0:
+            raise ValueError()
+        self.max_stamina += value
+
+
+    def reduce_max_stamina(self, value):
+        if value < 0:
+            raise ValueError()
+        self.max_stamina -= value
+        if self.max_stamina < 0:
+            self.max_stamina = 0
+        if self.stamina > self.max_stamina:
+            self.stamina = self.max_stamina
+
+
+    def increase_rank(self):
+        self.rank += 1
+        if self.rank > 10:
+            self.rank = 10
