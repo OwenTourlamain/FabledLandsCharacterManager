@@ -1,7 +1,12 @@
 from flcm.character import Character
 from flcm.item import Item
 from flcm.constants import Abilities, Professions
-from flcm.exceptions import InventoryFullError, ItemNotFoundError, NotEnoughShardsError
+from flcm.exceptions import (
+    InventoryFullError,
+    ItemNotFoundError,
+    NotEnoughShardsError,
+    NoteNotFoundError,
+)
 
 import pytest
 
@@ -24,6 +29,7 @@ def test_init():
     c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [simple_item], 10, 15)
     assert c.name == "Test"
     assert c.bio == "Bio"
+    assert c.notes == []
     assert c.profession == Professions.MAGE
     assert c.rank == 1
     assert c.abilities.charisma == 1
@@ -157,3 +163,25 @@ def test_increase_rank():
     assert c.rank == 1
     c.increase_rank()
     assert c.rank == 2
+
+
+def test_add_note():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    assert c.notes == []
+    c.add_note("Test note")
+    assert len(c.notes) == 1
+    assert c.notes[0] == "Test note"
+
+
+def test_remove_note():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    c.add_note("Test note1")
+    c.add_note("Test note2")
+    c.add_note("Test note3")
+    assert len(c.notes) == 3
+    c.remove_note("Test note2")
+    assert len(c.notes) == 2
+    assert c.notes[0] == "Test note1"
+    assert c.notes[1] == "Test note3"
+    with pytest.raises(NoteNotFoundError) as e:
+        c.remove_note("Test note4")

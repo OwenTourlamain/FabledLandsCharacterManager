@@ -1,6 +1,11 @@
 from .item import Item
-from .exceptions import InventoryFullError, ItemNotFoundError, NotEnoughShardsError
 from .constants import Abilities
+from .exceptions import (
+    InventoryFullError,
+    ItemNotFoundError,
+    NotEnoughShardsError,
+    NoteNotFoundError,
+)
 
 class AbilitiesContainter:
 
@@ -26,6 +31,8 @@ class Character:
         self.stamina = stamina
         self.max_stamina = stamina
         self.shards = shards
+
+        self.notes = []
 
 
     @property
@@ -108,3 +115,14 @@ class Character:
 
     def increase_rank(self):
         self.rank += 1
+
+
+    def add_note(self, note):
+        self.notes.append(note)
+
+
+    def remove_note(self, note):
+        if note in self.notes:
+            self.notes.remove(note)
+        else:
+            raise NoteNotFoundError()
