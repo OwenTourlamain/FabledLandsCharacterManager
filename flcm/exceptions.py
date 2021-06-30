@@ -10,6 +10,9 @@ class ItemNotFoundError(Error):
 class NoteNotFoundError(Error):
     """Exception raised when a note is not found in a charcters notes"""
 
+class BlessingNotFoundError(Error):
+    """Exception raised when a blessing is not found in a charcters blessings"""
+
 class NotEnoughShardsError(Error):
     """Exception raised when trying to remove more shards than a character has"""
 

@@ -6,6 +6,7 @@ from .exceptions import (
     NotEnoughShardsError,
     NoteNotFoundError,
     AlreadyWorshippingError,
+    BlessingNotFoundError,
 )
 
 class AbilitiesContainter:
@@ -34,6 +35,7 @@ class Character:
         self.shards = shards
 
         self.notes = []
+        self.blessings = []
         self.god = None
 
 
@@ -138,3 +140,14 @@ class Character:
 
     def revoke_worship(self):
         self.god = None
+
+
+    def gain_blessing(self, blessing):
+        self.blessings.append(blessing)
+
+
+    def remove_blessing(self, blessing):
+        if blessing in self.blessings:
+            self.blessings.remove(blessing)
+        else:
+            raise BlessingNotFoundError()

@@ -7,6 +7,7 @@ from flcm.exceptions import (
     NotEnoughShardsError,
     NoteNotFoundError,
     AlreadyWorshippingError,
+    BlessingNotFoundError,
 )
 
 import pytest
@@ -202,3 +203,25 @@ def test_revoke_worship():
     assert c.god == Gods.SIG
     c.revoke_worship()
     assert c.god == None
+
+
+def test_gain_blessing():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    assert len(c.blessings) == 0
+    c.gain_blessing("Test blessing")
+    assert len(c.blessings) == 1
+    assert c.blessings[0] == "Test blessing"
+
+
+def test_remove_blessing():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    with pytest.raises(BlessingNotFoundError) as e:
+        c.remove_blessing("Test blessing")
+    c.gain_blessing("Test blessing1")
+    c.gain_blessing("Test blessing2")
+    c.gain_blessing("Test blessing3")
+    assert len(c.blessings) == 3
+    c.remove_blessing("Test blessing2")
+    assert len(c.blessings) == 2
+    assert c.blessings[0] == "Test blessing1"
+    assert c.blessings[1] == "Test blessing3"
