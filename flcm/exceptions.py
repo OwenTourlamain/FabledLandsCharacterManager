@@ -10,6 +10,9 @@ class ItemNotFoundError(Error):
 class NoteNotFoundError(Error):
     """Exception raised when a note is not found in a charcters notes"""
 
+class TitleNotFoundError(Error):
+    """Exception raised when a title is not found in a charcters titles"""
+
 class BlessingNotFoundError(Error):
     """Exception raised when a blessing is not found in a charcters blessings"""
 

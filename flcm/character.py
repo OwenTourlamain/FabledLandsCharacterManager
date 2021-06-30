@@ -7,6 +7,7 @@ from .exceptions import (
     NoteNotFoundError,
     AlreadyWorshippingError,
     BlessingNotFoundError,
+    TitleNotFoundError,
 )
 
 class AbilitiesContainter:
@@ -36,6 +37,7 @@ class Character:
 
         self.notes = []
         self.blessings = []
+        self.titles = []
         self.god = None
 
 
@@ -151,3 +153,14 @@ class Character:
             self.blessings.remove(blessing)
         else:
             raise BlessingNotFoundError()
+
+
+    def gain_title(self, title):
+        self.titles.append(title)
+
+
+    def remove_title(self, title):
+        if title in self.titles:
+            self.titles.remove(title)
+        else:
+            raise TitleNotFoundError()

@@ -8,6 +8,7 @@ from flcm.exceptions import (
     NoteNotFoundError,
     AlreadyWorshippingError,
     BlessingNotFoundError,
+    TitleNotFoundError,
 )
 
 import pytest
@@ -225,3 +226,25 @@ def test_remove_blessing():
     assert len(c.blessings) == 2
     assert c.blessings[0] == "Test blessing1"
     assert c.blessings[1] == "Test blessing3"
+
+
+def test_gain_title():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    assert len(c.titles) == 0
+    c.gain_title("Test title")
+    assert len(c.titles) == 1
+    assert c.titles[0] == "Test title"
+
+
+def test_remove_title():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    with pytest.raises(TitleNotFoundError) as e:
+        c.remove_title("Test title")
+    c.gain_title("Test title1")
+    c.gain_title("Test title2")
+    c.gain_title("Test title3")
+    assert len(c.titles) == 3
+    c.remove_title("Test title2")
+    assert len(c.titles) == 2
+    assert c.titles[0] == "Test title1"
+    assert c.titles[1] == "Test title3"
