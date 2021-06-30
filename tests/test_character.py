@@ -248,3 +248,10 @@ def test_remove_title():
     assert len(c.titles) == 2
     assert c.titles[0] == "Test title1"
     assert c.titles[1] == "Test title3"
+
+
+def test_add_resurrection():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    assert c.resurrection == None
+    c.add_resurrection("Test resurrection")
+    assert c.resurrection == "Test resurrection"

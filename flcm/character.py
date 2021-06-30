@@ -39,6 +39,7 @@ class Character:
         self.blessings = []
         self.titles = []
         self.god = None
+        self.resurrection = None
 
 
     @property
@@ -164,3 +165,6 @@ class Character:
             self.titles.remove(title)
         else:
             raise TitleNotFoundError()
+
+    def add_resurrection(self, resurrection):
+        self.resurrection = resurrection
