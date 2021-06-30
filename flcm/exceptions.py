@@ -12,3 +12,6 @@ class NoteNotFoundError(Error):
 
 class NotEnoughShardsError(Error):
     """Exception raised when trying to remove more shards than a character has"""
+
+class AlreadyWorshippingError(Error):
+    """Exception raised when trying to become an initiate of one god whilst currently worshipping another"""

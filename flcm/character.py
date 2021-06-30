@@ -5,6 +5,7 @@ from .exceptions import (
     ItemNotFoundError,
     NotEnoughShardsError,
     NoteNotFoundError,
+    AlreadyWorshippingError,
 )
 
 class AbilitiesContainter:
@@ -33,6 +34,7 @@ class Character:
         self.shards = shards
 
         self.notes = []
+        self.god = None
 
 
     @property
@@ -126,3 +128,13 @@ class Character:
             self.notes.remove(note)
         else:
             raise NoteNotFoundError()
+
+
+    def become_initiate(self, god):
+        if self.god != None:
+            raise AlreadyWorshippingError()
+        self.god = god
+
+
+    def revoke_worship(self):
+        self.god = None

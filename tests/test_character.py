@@ -1,11 +1,12 @@
 from flcm.character import Character
 from flcm.item import Item
-from flcm.constants import Abilities, Professions
+from flcm.constants import Abilities, Professions, Gods
 from flcm.exceptions import (
     InventoryFullError,
     ItemNotFoundError,
     NotEnoughShardsError,
     NoteNotFoundError,
+    AlreadyWorshippingError,
 )
 
 import pytest
@@ -185,3 +186,19 @@ def test_remove_note():
     assert c.notes[1] == "Test note3"
     with pytest.raises(NoteNotFoundError) as e:
         c.remove_note("Test note4")
+
+
+def test_become_initiate():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    c.become_initiate(Gods.SIG)
+    assert c.god == Gods.SIG
+    with pytest.raises(AlreadyWorshippingError) as e:
+        c.become_initiate(Gods.NAGIL)
+
+
+def test_revoke_worship():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15)
+    c.become_initiate(Gods.SIG)
+    assert c.god == Gods.SIG
+    c.revoke_worship()
+    assert c.god == None

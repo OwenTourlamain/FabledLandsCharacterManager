@@ -1,19 +1,31 @@
 from enum import Enum
 
 class Abilities(Enum):
-    CHARISMA = "charisma"
-    COMBAT = "combat"
-    MAGIC = "magic"
-    SCOUTING = "scouting"
-    SANCTITY = "sanctity"
-    THIEVERY = "thievery"
-    DEFENCE = "defence"
+    CHARISMA = "Charisma"
+    COMBAT = "Combat"
+    MAGIC = "Magic"
+    SCOUTING = "Scouting"
+    SANCTITY = "Sanctity"
+    THIEVERY = "Thievery"
+    DEFENCE = "Defence"
 
 
 class Professions(Enum):
-    PRIEST = "priest"
-    MAGE = "mage"
-    ROGUE = "rogue"
-    TROUBADOUR = "troubadour"
-    WARRIOR = "warrior"
-    WAYFARER = "wayfarer"
+    PRIEST = "Priest"
+    MAGE = "Mage"
+    ROGUE = "Rogue"
+    TROUBADOUR = "Troubadour"
+    WARRIOR = "Warrior"
+    WAYFARER = "Wayfarer"
+
+
+class Gods(Enum):
+    ALVIR_VALMIR = "Alvir and Valmir"
+    ELNIR = "Elnir"
+    LACUNA = "Lacuna"
+    MAKA = "Maka"
+    MOLHERN = "Molhern"
+    NAGIL = "Nagil"
+    SIG = "Sig"
+    THREE_FORTUNES = "The Three Fortunes"
+    TYRNAI = "Tyrnai"
