@@ -257,3 +257,26 @@ def test_add_resurrection():
     assert c.resurrection == None
     c.add_resurrection("Test resurrection")
     assert c.resurrection == "Test resurrection"
+
+
+def test_deposit():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    assert c.banked_shards == 0
+    assert c.shards == 15
+    c.deposit(10)
+    assert c.banked_shards == 10
+    assert c.shards == 5
+    with pytest.raises(NotEnoughShardsError) as e:
+        c.deposit(10)
+
+
+def test_withdraw():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c.deposit(10)
+    assert c.banked_shards == 10
+    assert c.shards == 5
+    c.withdraw(5)
+    assert c.banked_shards == 5
+    assert c.shards == 10
+    with pytest.raises(NotEnoughShardsError) as e:
+        c.withdraw(10)

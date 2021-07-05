@@ -42,6 +42,7 @@ class Character:
         self.god = None
         self.resurrection = None
         self.location = Location(1, book)
+        self.banked_shards = 0
 
 
     @property
@@ -171,3 +172,17 @@ class Character:
 
     def add_resurrection(self, resurrection):
         self.resurrection = resurrection
+
+
+    def deposit(self, value):
+        if value > self.shards:
+            raise NotEnoughShardsError
+        self.banked_shards += value
+        self.shards -= value
+
+
+    def withdraw(self, value):
+        if value > self.banked_shards:
+            raise NotEnoughShardsError
+        self.banked_shards -= value
+        self.shards += value
