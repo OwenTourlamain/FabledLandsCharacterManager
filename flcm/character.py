@@ -1,4 +1,5 @@
 from .item import Item
+from .location import Location
 from .constants import Abilities
 from .exceptions import (
     InventoryFullError,
@@ -23,7 +24,7 @@ class AbilitiesContainter:
 
 class Character:
 
-    def __init__(self, name, bio, profession, rank, abilities, inventory, stamina, shards):
+    def __init__(self, name, bio, profession, rank, abilities, inventory, stamina, shards, book):
 
         self.name = name
         self.bio = bio
@@ -40,6 +41,7 @@ class Character:
         self.titles = []
         self.god = None
         self.resurrection = None
+        self.location = Location(1, book)
 
 
     @property
@@ -165,6 +167,7 @@ class Character:
             self.titles.remove(title)
         else:
             raise TitleNotFoundError()
+
 
     def add_resurrection(self, resurrection):
         self.resurrection = resurrection
