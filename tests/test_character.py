@@ -12,7 +12,7 @@ from flcm.exceptions import (
     TitleNotFoundError,
     NoInvestmentError,
     NoCheckboxError,
-    NoHouseError,
+    NoStorageError,
 )
 
 import pytest
@@ -358,46 +358,46 @@ def test_add_codeword():
 
 
 
-def test_store_shards_in_house():
+def test_store_shards():
     c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
     l = Location(100, Books.WTK)
     c.store_shards_in_house(10, l)
     assert c.shards == 5
-    assert c.houses[l].shards == 10
+    assert c.storage[l].shards == 10
     with pytest.raises(NotEnoughShardsError) as e:
         c.store_shards_in_house(10, l)
 
 
-def test_store_item_in_house():
+def test_store_item():
     c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
     c.add_item(simple_item)
     l = Location(100, Books.WTK)
     c.store_item_in_house(simple_item, l)
     assert simple_item not in c.inventory
-    assert simple_item in c.houses[l].items
+    assert simple_item in c.storage[l].items
     with pytest.raises(ItemNotFoundError) as e:
         c.store_item_in_house(bonus_item, l)
 
 
-def test_retrieve_shards_from_house():
+def test_retrieve_shards():
     c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
     l = Location(100, Books.WTK)
     c.store_shards_in_house(10, l)
     c.retrieve_shards_from_house(5, l)
     assert c.shards == 10
-    assert c.houses[l].shards == 5
+    assert c.storage[l].shards == 5
     with pytest.raises(NotEnoughShardsError) as e:
         c.retrieve_shards_from_house(10, l)
 
 
 
-def test_retrieve_item_from_house():
+def test_retrieve_item():
     c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
     c.add_item(simple_item)
     l = Location(100, Books.WTK)
     c.store_item_in_house(simple_item, l)
     c.retrieve_item_from_house(simple_item, l)
     assert simple_item in c.inventory
-    assert simple_item not in c.houses[l].items
+    assert simple_item not in c.storage[l].items
     with pytest.raises(ItemNotFoundError) as e:
         c.retrieve_item_from_house(bonus_item, l)

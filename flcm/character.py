@@ -1,7 +1,7 @@
 from math import floor
 
 from .item import Item
-from .house import House
+from .storage import Storage
 from .location import Location
 from .constants import Abilities
 from .exceptions import (
@@ -14,7 +14,7 @@ from .exceptions import (
     TitleNotFoundError,
     NoInvestmentError,
     NoCheckboxError,
-    NoHouseError,
+    NoStorageError,
 )
 
 class AbilitiesContainter:
@@ -52,7 +52,7 @@ class Character:
         self.investments = {}
         self.checkboxes = {}
         self.codewords = []
-        self.houses = {}
+        self.storage = {}
 
 
     @property
@@ -257,34 +257,34 @@ class Character:
     def store_shards_in_house(self, value, location):
         if value > self.shards:
             raise NotEnoughShardsError
-        if not location in self.houses:
-            self.houses[location] = House()
-        self.houses[location].shards += value
+        if not location in self.storage:
+            self.storage[location] = Storage()
+        self.storage[location].shards += value
         self.shards -= value
 
 
     def retrieve_shards_from_house(self, value, location):
-        if not location in self.houses:
-            raise NoHouseError
-        if value > self.houses[location].shards:
+        if not location in self.storage:
+            raise NoStorageError
+        if value > self.storage[location].shards:
             raise NotEnoughShardsError
-        self.houses[location].shards -= value
+        self.storage[location].shards -= value
         self.shards += value
 
 
     def store_item_in_house(self, item, location):
         if not item in self.inventory:
             raise ItemNotFoundError
-        if not location in self.houses:
-            self.houses[location] = House()
-        self.houses[location].items.append(item)
+        if not location in self.storage:
+            self.storage[location] = Storage()
+        self.storage[location].items.append(item)
         self.remove_item(item)
 
 
     def retrieve_item_from_house(self, item, location):
-        if not location in self.houses:
-            raise NoHouseError
-        if not item in self.houses[location].items:
+        if not location in self.storage:
+            raise NoStorageError
+        if not item in self.storage[location].items:
             raise ItemNotFoundError
         self.add_item(item)
-        self.houses[location].items.remove(item)
+        self.storage[location].items.remove(item)

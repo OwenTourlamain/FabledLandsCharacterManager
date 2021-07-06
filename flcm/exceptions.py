@@ -31,5 +31,5 @@ class NoInvestmentError(Error):
 class NoCheckboxError(Error):
     """Exception raised when trying to remove a checkbox that doesn't exist"""
 
-class NoHouseError(Error):
-    """Exception raised when trying to access a house that doesn't exist"""
+class NoStorageError(Error):
+    """Exception raised when trying to access storage that doesn't exist"""
