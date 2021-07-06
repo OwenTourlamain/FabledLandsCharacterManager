@@ -26,7 +26,7 @@ class AlreadyWorshippingError(Error):
     """Exception raised when trying to become an initiate of one god whilst currently worshipping another"""
 
 class NoInvestmentError(Error):
-    """Exception raised when trying to become an initiate of one god whilst currently worshipping another"""
+    """Exception raised when trying to remove an investment that does not exist"""
 
 class NoCheckboxError(Error):
     """Exception raised when trying to remove a checkbox that doesn't exist"""
