@@ -1,4 +1,5 @@
 from .item import Item
+from .house import House
 from .location import Location
 from .constants import Abilities
 from .exceptions import (
@@ -11,6 +12,7 @@ from .exceptions import (
     TitleNotFoundError,
     NoInvestmentError,
     NoCheckboxError,
+    NoHouseError,
 )
 
 class AbilitiesContainter:
@@ -48,6 +50,7 @@ class Character:
         self.investments = {}
         self.checkboxes = {}
         self.codewords = []
+        self.houses = {}
 
 
     @property
@@ -244,3 +247,39 @@ class Character:
             self.codewords.remove(codeword)
         else:
             raise CodewordNotFoundError()
+
+
+    def store_shards_in_house(self, value, location):
+        if value > self.shards:
+            raise NotEnoughShardsError
+        if not location in self.houses:
+            self.houses[location] = House()
+        self.houses[location].shards += value
+        self.shards -= value
+
+
+    def retrieve_shards_from_house(self, value, location):
+        if not location in self.houses:
+            raise NoHouseError
+        if value > self.houses[location].shards:
+            raise NotEnoughShardsError
+        self.houses[location].shards -= value
+        self.shards += value
+
+
+    def store_item_in_house(self, item, location):
+        if not item in self.inventory:
+            raise ItemNotFoundError
+        if not location in self.houses:
+            self.houses[location] = House()
+        self.houses[location].items.append(item)
+        self.remove_item(item)
+
+
+    def retrieve_item_from_house(self, item, location):
+        if not location in self.houses:
+            raise NoHouseError
+        if not item in self.houses[location].items:
+            raise ItemNotFoundError
+        self.add_item(item)
+        self.houses[location].items.remove(item)
