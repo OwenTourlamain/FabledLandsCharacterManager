@@ -10,6 +10,7 @@ from flcm.exceptions import (
     AlreadyWorshippingError,
     BlessingNotFoundError,
     TitleNotFoundError,
+    NoInvestmentError,
 )
 
 import pytest
@@ -280,3 +281,35 @@ def test_withdraw():
     assert c.shards == 10
     with pytest.raises(NotEnoughShardsError) as e:
         c.withdraw(10)
+
+
+def test_invest():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    l = Location(100, Books.WTK)
+    c.invest(10, l)
+    assert c.investments[l] == 10
+    assert c.shards == 5
+    with pytest.raises(NotEnoughShardsError) as e:
+        c.invest(10, l)
+
+
+def test_disinvest():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    l = Location(100, Books.WTK)
+    l2 = Location(200, Books.WTK)
+    c.invest(10, l)
+    c.disinvest(5, l)
+    assert c.investments[l] == 5
+    assert c.shards == 10
+    with pytest.raises(NotEnoughShardsError) as e:
+        c.disinvest(10, l)
+    with pytest.raises(NoInvestmentError) as e:
+        c.disinvest(10, l2)
+
+
+def test_update_investment():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    l = Location(100, Books.WTK)
+    c.invest(10, l)
+    c.update_investment(l, 0.5)
+    assert c.investments[l] == 5

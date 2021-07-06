@@ -21,3 +21,6 @@ class NotEnoughShardsError(Error):
 
 class AlreadyWorshippingError(Error):
     """Exception raised when trying to become an initiate of one god whilst currently worshipping another"""
+
+class NoInvestmentError(Error):
+    """Exception raised when trying to become an initiate of one god whilst currently worshipping another"""

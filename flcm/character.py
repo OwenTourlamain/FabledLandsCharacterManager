@@ -9,6 +9,7 @@ from .exceptions import (
     AlreadyWorshippingError,
     BlessingNotFoundError,
     TitleNotFoundError,
+    NoInvestmentError,
 )
 
 class AbilitiesContainter:
@@ -43,6 +44,7 @@ class Character:
         self.resurrection = None
         self.location = Location(1, book)
         self.banked_shards = 0
+        self.investments = {}
 
 
     @property
@@ -186,3 +188,30 @@ class Character:
             raise NotEnoughShardsError
         self.banked_shards -= value
         self.shards += value
+
+
+    def invest(self, value, location):
+        if value > self.shards:
+            raise NotEnoughShardsError
+        if location in self.investments:
+            self.investments[location] += value
+        else:
+            self.investments[location] = value
+        self.shards -= value
+
+
+    def disinvest(self, value, location):
+        if not location in self.investments:
+            raise NoInvestmentError
+        if value > self.investments[location]:
+            raise NotEnoughShardsError
+        self.investments[location] -= value
+        self.shards += value
+        if self.investments[location] == 0:
+            del self.investments[location]
+
+
+    def update_investment(self, location, percentage):
+        if not location in self.investments:
+            raise NoInvestmentError
+        self.investments[location] = self.investments[location] * percentage
