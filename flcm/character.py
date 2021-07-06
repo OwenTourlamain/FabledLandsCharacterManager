@@ -239,7 +239,8 @@ class Character:
 
 
     def add_codeword(self, codeword):
-        self.codewords.append(codeword)
+        if not codeword in self.codewords:
+            self.codewords.append(codeword)
 
 
     def remove_codeword(self, codeword):

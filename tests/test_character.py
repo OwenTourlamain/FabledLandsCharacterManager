@@ -343,6 +343,9 @@ def test_add_codeword():
     assert len(c.codewords) == 2
     assert c.codewords[0] == "test1"
     assert c.codewords[1] == "test3"
+    c.add_codeword("test3")
+    assert len(c.codewords) == 2
+
 
 
 def test_store_shards_in_house():
