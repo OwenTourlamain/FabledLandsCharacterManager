@@ -33,7 +33,7 @@ armour = Item("Leather", Abilities.DEFENCE, 2)
 
 
 def test_init():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [simple_item], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[simple_item], stamina=10, shards=15, book=Books.WTK)
     assert c.name == "Test"
     assert c.bio == "Bio"
     assert c.notes == []
@@ -52,22 +52,22 @@ def test_init():
 
 
 def test_armour():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [armour], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[armour], stamina=10, shards=15, book=Books.WTK)
     assert c.armour == 2
 
 
 def test_defence():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [armour], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[armour], stamina=10, shards=15, book=Books.WTK)
     assert c.defence == 5
 
 
 def test_get_bonus():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [bonus_item], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[bonus_item], stamina=10, shards=15, book=Books.WTK)
     assert c.get_bonus(Abilities.SCOUTING) == 2
 
 
 def test_add_item():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert len(c.inventory) == 0
     c.add_item(simple_item)
     assert len(c.inventory) == 1
@@ -79,7 +79,7 @@ def test_add_item():
 
 
 def test_remove_item():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [simple_item, simple_item], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[simple_item, simple_item], stamina=10, shards=15, book=Books.WTK)
     assert len(c.inventory) == 2
     c.remove_item(simple_item)
     assert len(c.inventory) == 1
@@ -90,7 +90,7 @@ def test_remove_item():
 
 
 def test_add_shards():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.shards == 15
     c.add_shards(10)
     assert c.shards == 25
@@ -100,7 +100,7 @@ def test_add_shards():
 
 
 def test_spend_shards():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.shards == 15
     c.spend_shards(10)
     assert c.shards == 5
@@ -114,7 +114,7 @@ def test_spend_shards():
 
 
 def test_damage():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.stamina == 10
     c.damage(5)
     assert c.stamina == 5
@@ -125,7 +125,7 @@ def test_damage():
 
 
 def test_heal():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.damage(5)
     assert c.stamina == 5
     c.heal(2)
@@ -137,7 +137,7 @@ def test_heal():
 
 
 def test_reduce_max_stamina():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.max_stamina == 10
     assert c.stamina == 10
     c.reduce_max_stamina(5)
@@ -157,7 +157,7 @@ def test_reduce_max_stamina():
 
 
 def test_increase_max_stamina():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.damage(5)
     c.increase_max_stamina(5)
     assert c.max_stamina == 15
@@ -167,14 +167,14 @@ def test_increase_max_stamina():
 
 
 def test_increase_rank():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.rank == 1
     c.increase_rank()
     assert c.rank == 2
 
 
 def test_add_note():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.notes == []
     c.add_note("Test note")
     assert len(c.notes) == 1
@@ -182,7 +182,7 @@ def test_add_note():
 
 
 def test_remove_note():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.add_note("Test note1")
     c.add_note("Test note2")
     c.add_note("Test note3")
@@ -196,7 +196,7 @@ def test_remove_note():
 
 
 def test_become_initiate():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.become_initiate(Gods.SIG)
     assert c.god == Gods.SIG
     with pytest.raises(AlreadyWorshippingError) as e:
@@ -204,7 +204,7 @@ def test_become_initiate():
 
 
 def test_revoke_worship():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.become_initiate(Gods.SIG)
     assert c.god == Gods.SIG
     c.revoke_worship()
@@ -212,7 +212,7 @@ def test_revoke_worship():
 
 
 def test_gain_blessing():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert len(c.blessings) == 0
     c.gain_blessing("Test blessing")
     assert len(c.blessings) == 1
@@ -220,7 +220,7 @@ def test_gain_blessing():
 
 
 def test_remove_blessing():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     with pytest.raises(BlessingNotFoundError) as e:
         c.remove_blessing("Test blessing")
     c.gain_blessing("Test blessing1")
@@ -234,7 +234,7 @@ def test_remove_blessing():
 
 
 def test_gain_title():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert len(c.titles) == 0
     c.gain_title("Test title")
     assert len(c.titles) == 1
@@ -242,7 +242,7 @@ def test_gain_title():
 
 
 def test_remove_title():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     with pytest.raises(TitleNotFoundError) as e:
         c.remove_title("Test title")
     c.gain_title("Test title1")
@@ -256,14 +256,14 @@ def test_remove_title():
 
 
 def test_add_resurrection():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.resurrection == None
     c.add_resurrection("Test resurrection")
     assert c.resurrection == "Test resurrection"
 
 
 def test_deposit():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert c.banked_shards == 0
     assert c.shards == 15
     c.deposit(10)
@@ -274,7 +274,7 @@ def test_deposit():
 
 
 def test_withdraw():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.deposit(10)
     assert c.banked_shards == 10
     assert c.shards == 5
@@ -286,7 +286,7 @@ def test_withdraw():
 
 
 def test_invest():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     c.invest(10, l)
     assert c.investments[l] == 10
@@ -296,7 +296,7 @@ def test_invest():
 
 
 def test_disinvest():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     l2 = Location(200, Books.WTK)
     c.invest(10, l)
@@ -316,7 +316,7 @@ def test_disinvest():
 
 
 def test_update_investment():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     c.invest(10, l)
     c.update_investment(l, -50)
@@ -328,7 +328,7 @@ def test_update_investment():
 
 
 def test_checkboxes():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     assert c.checkboxes == {}
     c.add_checkbox(l)
@@ -343,7 +343,7 @@ def test_checkboxes():
 
 
 def test_add_codeword():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.add_codeword("test1")
     assert len(c.codewords) == 1
     c.add_codeword("test2")
@@ -359,7 +359,7 @@ def test_add_codeword():
 
 
 def test_store_shards():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     c.store_shards_in_house(10, l)
     assert c.shards == 5
@@ -369,7 +369,7 @@ def test_store_shards():
 
 
 def test_store_item():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.add_item(simple_item)
     l = Location(100, Books.WTK)
     c.store_item_in_house(simple_item, l)
@@ -380,7 +380,7 @@ def test_store_item():
 
 
 def test_retrieve_shards():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     c.store_shards_in_house(10, l)
     c.retrieve_shards_from_house(5, l)
@@ -392,7 +392,7 @@ def test_retrieve_shards():
 
 
 def test_retrieve_item():
-    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.add_item(simple_item)
     l = Location(100, Books.WTK)
     c.store_item_in_house(simple_item, l)

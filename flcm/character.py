@@ -30,7 +30,7 @@ class AbilitiesContainter:
 
 class Character:
 
-    def __init__(self, name, bio, profession, rank, abilities, inventory, stamina, shards, book):
+    def __init__(self, name=None, bio=None, profession=None, rank=None, abilities=None, inventory=None, stamina=None, shards=None, book=None):
 
         self.name = name
         self.bio = bio
