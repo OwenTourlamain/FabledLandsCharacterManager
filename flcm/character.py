@@ -47,6 +47,7 @@ class Character:
         self.banked_shards = 0
         self.investments = {}
         self.checkboxes = {}
+        self.codewords = []
 
 
     @property
@@ -232,3 +233,14 @@ class Character:
         self.checkboxes[location] -= 1
         if self.checkboxes[location] == 0:
             del self.checkboxes[location]
+
+
+    def add_codeword(self, codeword):
+        self.codewords.append(codeword)
+
+
+    def remove_codeword(self, codeword):
+        if codeword in self.codewords:
+            self.codewords.remove(codeword)
+        else:
+            raise CodewordNotFoundError()

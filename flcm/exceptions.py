@@ -10,6 +10,9 @@ class ItemNotFoundError(Error):
 class NoteNotFoundError(Error):
     """Exception raised when a note is not found in a charcters notes"""
 
+class CodewordNotFoundError(Error):
+    """Exception raised when a codeword is not found in a charcters codewords"""
+
 class TitleNotFoundError(Error):
     """Exception raised when a title is not found in a charcters titles"""
 

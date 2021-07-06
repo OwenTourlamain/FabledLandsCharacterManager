@@ -329,3 +329,16 @@ def test_checkboxes():
     c.remove_checkbox(l)
     with pytest.raises(NoCheckboxError) as e:
         c.remove_checkbox(l)
+
+
+def test_add_codeword():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    c.add_codeword("test1")
+    assert len(c.codewords) == 1
+    c.add_codeword("test2")
+    c.add_codeword("test3")
+    assert len(c.codewords) == 3
+    c.remove_codeword("test2")
+    assert len(c.codewords) == 2
+    assert c.codewords[0] == "test1"
+    assert c.codewords[1] == "test3"
