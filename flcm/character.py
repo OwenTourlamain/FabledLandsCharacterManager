@@ -1,3 +1,5 @@
+from math import floor
+
 from .item import Item
 from .house import House
 from .location import Location
@@ -212,7 +214,9 @@ class Character:
         if value > self.investments[location]:
             raise NotEnoughShardsError
         self.investments[location] -= value
-        self.shards += value
+        self.shards += floor(value)
+        if self.investments[location] < 1:
+            self.investments[location] = 0
         if self.investments[location] == 0:
             del self.investments[location]
 
@@ -220,7 +224,7 @@ class Character:
     def update_investment(self, location, percentage):
         if not location in self.investments:
             raise NoInvestmentError
-        self.investments[location] = self.investments[location] * percentage
+        self.investments[location] = self.investments[location] * ((100 + percentage) / 100)
 
 
     def add_checkbox(self, location):

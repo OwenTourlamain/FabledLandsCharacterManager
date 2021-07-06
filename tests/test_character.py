@@ -307,14 +307,24 @@ def test_disinvest():
         c.disinvest(10, l)
     with pytest.raises(NoInvestmentError) as e:
         c.disinvest(10, l2)
+    c.update_investment(l, -10)
+    assert c.investments[l] == 4.5
+    c.disinvest(3, l)
+    assert c.investments[l] == 1.5
+    c.disinvest(1, l)
+    assert not l in c.investments
 
 
 def test_update_investment():
     c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
     l = Location(100, Books.WTK)
     c.invest(10, l)
-    c.update_investment(l, 0.5)
+    c.update_investment(l, -50)
     assert c.investments[l] == 5
+    c.update_investment(l, 10)
+    assert c.investments[l] == 5.5
+    c.update_investment(l, 200)
+    assert c.investments[l] == 16.5
 
 
 def test_checkboxes():
