@@ -11,6 +11,7 @@ from flcm.exceptions import (
     BlessingNotFoundError,
     TitleNotFoundError,
     NoInvestmentError,
+    NoCheckboxError,
 )
 
 import pytest
@@ -313,3 +314,18 @@ def test_update_investment():
     c.invest(10, l)
     c.update_investment(l, 0.5)
     assert c.investments[l] == 5
+
+
+def test_checkboxes():
+    c = Character("Test", "Bio", Professions.MAGE, 1, abilities_dict, [], 10, 15, Books.WTK)
+    l = Location(100, Books.WTK)
+    assert c.checkboxes == {}
+    c.add_checkbox(l)
+    assert c.checkboxes[l] == 1
+    c.add_checkbox(l)
+    assert c.checkboxes[l] == 2
+    c.remove_checkbox(l)
+    assert c.checkboxes[l] == 1
+    c.remove_checkbox(l)
+    with pytest.raises(NoCheckboxError) as e:
+        c.remove_checkbox(l)

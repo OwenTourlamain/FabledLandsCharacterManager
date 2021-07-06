@@ -10,6 +10,7 @@ from .exceptions import (
     BlessingNotFoundError,
     TitleNotFoundError,
     NoInvestmentError,
+    NoCheckboxError,
 )
 
 class AbilitiesContainter:
@@ -45,6 +46,7 @@ class Character:
         self.location = Location(1, book)
         self.banked_shards = 0
         self.investments = {}
+        self.checkboxes = {}
 
 
     @property
@@ -215,3 +217,18 @@ class Character:
         if not location in self.investments:
             raise NoInvestmentError
         self.investments[location] = self.investments[location] * percentage
+
+
+    def add_checkbox(self, location):
+        if not location in self.checkboxes:
+            self.checkboxes[location] = 1
+        else:
+            self.checkboxes[location] += 1
+
+
+    def remove_checkbox(self, location):
+        if not location in self.checkboxes:
+            raise NoCheckboxError
+        self.checkboxes[location] -= 1
+        if self.checkboxes[location] == 0:
+            del self.checkboxes[location]
