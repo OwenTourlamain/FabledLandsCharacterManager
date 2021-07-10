@@ -13,8 +13,12 @@ class Location:
         return False
 
 
+    def __str__(self):
+        return f"{self.book}, section: {str(self.section)}"
+
+
     def __repr__(self):
-        return f"{self.book.value}, section: {str(self.section)}"
+        return f"{self.book}, section: {str(self.section)}"
 
 
     def __hash__(self):

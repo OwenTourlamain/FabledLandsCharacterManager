@@ -1,4 +1,5 @@
 from math import floor
+import json
 
 from .item import Item
 from .storage import Storage
@@ -31,23 +32,34 @@ class AbilitiesContainter:
 class Character:
 
     def __init__(self, name=None, bio=None, profession=None, rank=None, abilities=None, inventory=None, stamina=None, shards=None, book=None):
-
-        self.name = name
-        self.bio = bio
-        self.profession = profession
-        self.rank = rank
-        self.abilities = AbilitiesContainter(abilities)
-        self.inventory = inventory
-        self.stamina = stamina
-        self.max_stamina = stamina
-        self.shards = shards
+        if name:
+            self.name = name
+            self.bio = bio
+            self.profession = profession
+            self.rank = rank
+            self.abilities = AbilitiesContainter(abilities)
+            self.inventory = inventory
+            self.stamina = stamina
+            self.max_stamina = stamina
+            self.shards = shards
+            self.location = Location(1, book)
+        else:
+            self.name = None
+            self.bio = None
+            self.profession = None
+            self.rank = 0
+            self.abilities = None
+            self.inventory = []
+            self.stamina = 0
+            self.max_stamina = 0
+            self.shards = 0
+            self.location = None
 
         self.notes = []
         self.blessings = []
         self.titles = []
         self.god = None
         self.resurrection = None
-        self.location = Location(1, book)
         self.banked_shards = 0
         self.investments = {}
         self.checkboxes = {}
@@ -88,13 +100,13 @@ class Character:
 
 
     def add_shards(self, value):
-        if value < 1:
+        if value < 0:
             raise ValueError()
         self.shards += value
 
 
     def spend_shards(self, value):
-        if value < 1:
+        if value < 0:
             raise ValueError()
         elif value > self.shards:
             raise NotEnoughShardsError()
@@ -158,7 +170,7 @@ class Character:
         self.god = None
 
 
-    def gain_blessing(self, blessing):
+    def add_blessing(self, blessing):
         self.blessings.append(blessing)
 
 
@@ -169,7 +181,7 @@ class Character:
             raise BlessingNotFoundError()
 
 
-    def gain_title(self, title):
+    def add_title(self, title):
         self.titles.append(title)
 
 
@@ -199,6 +211,7 @@ class Character:
 
 
     def invest(self, value, location):
+        location = str(location)
         if value > self.shards:
             raise NotEnoughShardsError
         if location in self.investments:
@@ -209,6 +222,7 @@ class Character:
 
 
     def disinvest(self, value, location):
+        location = str(location)
         if not location in self.investments:
             raise NoInvestmentError
         if value > self.investments[location]:
@@ -222,24 +236,27 @@ class Character:
 
 
     def update_investment(self, location, percentage):
+        location = str(location)
         if not location in self.investments:
             raise NoInvestmentError
         self.investments[location] = self.investments[location] * ((100 + percentage) / 100)
 
 
     def add_checkbox(self, location):
-        if not location in self.checkboxes:
-            self.checkboxes[location] = 1
-        else:
-            self.checkboxes[location] += 1
+        key = str(location)
+        value = 1
+        if key in self.checkboxes:
+            value += self.checkboxes[key]
+        self.checkboxes[key] = value
 
 
     def remove_checkbox(self, location):
-        if not location in self.checkboxes:
+        key = str(location)
+        if not key in self.checkboxes:
             raise NoCheckboxError
-        self.checkboxes[location] -= 1
-        if self.checkboxes[location] == 0:
-            del self.checkboxes[location]
+        self.checkboxes[key] -= 1
+        if self.checkboxes[key] == 0:
+            del self.checkboxes[key]
 
 
     def add_codeword(self, codeword):
@@ -254,7 +271,8 @@ class Character:
             raise CodewordNotFoundError()
 
 
-    def store_shards_in_house(self, value, location):
+    def store_shards(self, value, location):
+        location = str(location)
         if value > self.shards:
             raise NotEnoughShardsError
         if not location in self.storage:
@@ -263,7 +281,8 @@ class Character:
         self.shards -= value
 
 
-    def retrieve_shards_from_house(self, value, location):
+    def retrieve_shards(self, value, location):
+        location = str(location)
         if not location in self.storage:
             raise NoStorageError
         if value > self.storage[location].shards:
@@ -272,7 +291,8 @@ class Character:
         self.shards += value
 
 
-    def store_item_in_house(self, item, location):
+    def store_item(self, item, location):
+        location = str(location)
         if not item in self.inventory:
             raise ItemNotFoundError
         if not location in self.storage:
@@ -281,10 +301,110 @@ class Character:
         self.remove_item(item)
 
 
-    def retrieve_item_from_house(self, item, location):
+    def retrieve_item(self, item, location):
+        location = str(location)
         if not location in self.storage:
             raise NoStorageError
         if not item in self.storage[location].items:
             raise ItemNotFoundError
         self.add_item(item)
         self.storage[location].items.remove(item)
+
+
+    def save(self):
+        notes = json.dumps(self.notes, indent=2).replace('\n', '\n    ')
+        blessings = json.dumps(self.blessings, indent=2).replace('\n', '\n    ')
+        titles = json.dumps(self.titles, indent=2).replace('\n', '\n    ')
+        codewords = json.dumps(self.codewords, indent=2).replace('\n', '\n    ')
+        checkboxes = json.dumps(self.checkboxes, indent=2).replace('\n', '\n    ')
+        investments = json.dumps(self.investments, indent=2).replace('\n', '\n    ')
+        storage = json.dumps(self.storage, default=vars, indent=2).replace('\n', '\n    ')
+
+        return (
+            f'{{\n'
+            f'  "character": {{\n'
+            f'    "name": "{self.name}",\n'
+            f'    "bio": "{self.bio}",\n'
+            f'    "profession": "{self.profession}",\n'
+            f'    "rank": {self.rank},\n'
+            f'    "stamina": {self.stamina},\n'
+            f'    "max_stamina": {self.max_stamina},\n'
+            f'    "abilities": {{\n'
+            f'      "charisma": {self.abilities.charisma},\n'
+            f'      "combat": {self.abilities.combat},\n'
+            f'      "magic": {self.abilities.magic},\n'
+            f'      "sanctity": {self.abilities.sanctity},\n'
+            f'      "scouting": {self.abilities.scouting},\n'
+            f'      "thievery": {self.abilities.thievery}\n'
+            f'    }},\n'
+            f'    "shards": {self.shards},\n'
+            f'    "banked_shards": {self.banked_shards},\n'
+            f'    "resurrection": "{self.resurrection}",\n'
+            f'    "god": "{self.god}",\n'
+            f'    "location": {{\n'
+            f'      "book": "{self.location.book}",\n'
+            f'      "section": "{self.location.section}"\n'
+            f'    }},\n'
+            f'    "notes": {notes},\n'
+            f'    "blessings": {blessings},\n'
+            f'    "titles": {titles},\n'
+            f'    "codewords": {codewords},\n'
+            f'    "checkboxes": {checkboxes},\n'
+            f'    "investments": {investments},\n'
+            f'    "storage": {storage}\n'
+            f'  }}\n'
+            f'}}'
+        )
+
+
+    def load(self, json):
+        character = json['character']
+
+        self.name = character['name']
+        self.bio = character['bio']
+        self.profession = character['profession']
+        self.rank = character['rank']
+        self.stamina = character['stamina']
+        self.max_stamina = character['max_stamina']
+        self.shards = character['shards']
+        self.banked_shards = character['banked_shards']
+        self.resurrection = character['resurrection']
+        self.god = character['god']
+        self.abilities = character['abilities']
+
+        self.location = Location(character['location']['book'], character['location']['section'])
+
+        for note in character['notes']:
+            self.add_note(note)
+        for blessing in character['blessings']:
+            self.add_blessing(blessing)
+        for title in character['titles']:
+            self.add_title(title)
+        for codeword in character['codewords']:
+            self.add_codeword(codeword)
+
+        for checkbox in character['checkboxes']:
+            value = character['checkboxes'][checkbox]
+            l = checkbox.split(', section: ')
+            location = Location(l[1], l[0])
+            for i in range(value):
+                self.add_checkbox(location)
+
+        for investment in character['investments']:
+            value = character['investments'][investment]
+            l = investment.split(', section: ')
+            location = Location(l[1], l[0])
+            self.add_shards(value)
+            self.invest(value, location)
+
+        for storage in character['storage']:
+            shards = character['storage'][storage]['shards']
+            items = character['storage'][storage]['items']
+            l = investment.split(', section: ')
+            location = Location(l[1], l[0])
+            self.add_shards(shards)
+            self.store_shards(shards, location)
+            self.storage[str(location)].items = []
+            for item in items:
+                i = Item(item['name'], item['ability'], item['value'])
+                self.storage[str(location)].items.append(i)

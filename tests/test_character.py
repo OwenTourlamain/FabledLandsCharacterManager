@@ -211,10 +211,10 @@ def test_revoke_worship():
     assert c.god == None
 
 
-def test_gain_blessing():
+def test_add_blessing():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert len(c.blessings) == 0
-    c.gain_blessing("Test blessing")
+    c.add_blessing("Test blessing")
     assert len(c.blessings) == 1
     assert c.blessings[0] == "Test blessing"
 
@@ -223,9 +223,9 @@ def test_remove_blessing():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     with pytest.raises(BlessingNotFoundError) as e:
         c.remove_blessing("Test blessing")
-    c.gain_blessing("Test blessing1")
-    c.gain_blessing("Test blessing2")
-    c.gain_blessing("Test blessing3")
+    c.add_blessing("Test blessing1")
+    c.add_blessing("Test blessing2")
+    c.add_blessing("Test blessing3")
     assert len(c.blessings) == 3
     c.remove_blessing("Test blessing2")
     assert len(c.blessings) == 2
@@ -233,10 +233,10 @@ def test_remove_blessing():
     assert c.blessings[1] == "Test blessing3"
 
 
-def test_gain_title():
+def test_add_title():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     assert len(c.titles) == 0
-    c.gain_title("Test title")
+    c.add_title("Test title")
     assert len(c.titles) == 1
     assert c.titles[0] == "Test title"
 
@@ -245,9 +245,9 @@ def test_remove_title():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     with pytest.raises(TitleNotFoundError) as e:
         c.remove_title("Test title")
-    c.gain_title("Test title1")
-    c.gain_title("Test title2")
-    c.gain_title("Test title3")
+    c.add_title("Test title1")
+    c.add_title("Test title2")
+    c.add_title("Test title3")
     assert len(c.titles) == 3
     c.remove_title("Test title2")
     assert len(c.titles) == 2
@@ -289,7 +289,7 @@ def test_invest():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
     c.invest(10, l)
-    assert c.investments[l] == 10
+    assert c.investments[str(l)] == 10
     assert c.shards == 5
     with pytest.raises(NotEnoughShardsError) as e:
         c.invest(10, l)
@@ -301,16 +301,16 @@ def test_disinvest():
     l2 = Location(200, Books.WTK)
     c.invest(10, l)
     c.disinvest(5, l)
-    assert c.investments[l] == 5
+    assert c.investments[str(l)] == 5
     assert c.shards == 10
     with pytest.raises(NotEnoughShardsError) as e:
         c.disinvest(10, l)
     with pytest.raises(NoInvestmentError) as e:
         c.disinvest(10, l2)
     c.update_investment(l, -10)
-    assert c.investments[l] == 4.5
+    assert c.investments[str(l)] == 4.5
     c.disinvest(3, l)
-    assert c.investments[l] == 1.5
+    assert c.investments[str(l)] == 1.5
     c.disinvest(1, l)
     assert not l in c.investments
 
@@ -320,11 +320,11 @@ def test_update_investment():
     l = Location(100, Books.WTK)
     c.invest(10, l)
     c.update_investment(l, -50)
-    assert c.investments[l] == 5
+    assert c.investments[str(l)] == 5
     c.update_investment(l, 10)
-    assert c.investments[l] == 5.5
+    assert c.investments[str(l)] == 5.5
     c.update_investment(l, 200)
-    assert c.investments[l] == 16.5
+    assert c.investments[str(l)] == 16.5
 
 
 def test_checkboxes():
@@ -332,11 +332,11 @@ def test_checkboxes():
     l = Location(100, Books.WTK)
     assert c.checkboxes == {}
     c.add_checkbox(l)
-    assert c.checkboxes[l] == 1
+    assert c.checkboxes[str(l)] == 1
     c.add_checkbox(l)
-    assert c.checkboxes[l] == 2
+    assert c.checkboxes[str(l)] == 2
     c.remove_checkbox(l)
-    assert c.checkboxes[l] == 1
+    assert c.checkboxes[str(l)] == 1
     c.remove_checkbox(l)
     with pytest.raises(NoCheckboxError) as e:
         c.remove_checkbox(l)
@@ -361,33 +361,33 @@ def test_add_codeword():
 def test_store_shards():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
-    c.store_shards_in_house(10, l)
+    c.store_shards(10, l)
     assert c.shards == 5
-    assert c.storage[l].shards == 10
+    assert c.storage[str(l)].shards == 10
     with pytest.raises(NotEnoughShardsError) as e:
-        c.store_shards_in_house(10, l)
+        c.store_shards(10, l)
 
 
 def test_store_item():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.add_item(simple_item)
     l = Location(100, Books.WTK)
-    c.store_item_in_house(simple_item, l)
+    c.store_item(simple_item, l)
     assert simple_item not in c.inventory
-    assert simple_item in c.storage[l].items
+    assert simple_item in c.storage[str(l)].items
     with pytest.raises(ItemNotFoundError) as e:
-        c.store_item_in_house(bonus_item, l)
+        c.store_item(bonus_item, l)
 
 
 def test_retrieve_shards():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     l = Location(100, Books.WTK)
-    c.store_shards_in_house(10, l)
-    c.retrieve_shards_from_house(5, l)
+    c.store_shards(10, l)
+    c.retrieve_shards(5, l)
     assert c.shards == 10
-    assert c.storage[l].shards == 5
+    assert c.storage[str(l)].shards == 5
     with pytest.raises(NotEnoughShardsError) as e:
-        c.retrieve_shards_from_house(10, l)
+        c.retrieve_shards(10, l)
 
 
 
@@ -395,9 +395,9 @@ def test_retrieve_item():
     c = Character(name="Test", bio="Bio", profession=Professions.MAGE, rank=1, abilities=abilities_dict, inventory=[], stamina=10, shards=15, book=Books.WTK)
     c.add_item(simple_item)
     l = Location(100, Books.WTK)
-    c.store_item_in_house(simple_item, l)
-    c.retrieve_item_from_house(simple_item, l)
+    c.store_item(simple_item, l)
+    c.retrieve_item(simple_item, l)
     assert simple_item in c.inventory
-    assert simple_item not in c.storage[l].items
+    assert simple_item not in c.storage[str(l)].items
     with pytest.raises(ItemNotFoundError) as e:
-        c.retrieve_item_from_house(bonus_item, l)
+        c.retrieve_item(bonus_item, l)

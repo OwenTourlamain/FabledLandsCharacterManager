@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Abilities(Enum):
+class Abilities():
     CHARISMA = "Charisma"
     COMBAT = "Combat"
     MAGIC = "Magic"
@@ -10,7 +10,7 @@ class Abilities(Enum):
     DEFENCE = "Defence"
 
 
-class Professions(Enum):
+class Professions():
     PRIEST = "Priest"
     MAGE = "Mage"
     ROGUE = "Rogue"
@@ -19,7 +19,7 @@ class Professions(Enum):
     WAYFARER = "Wayfarer"
 
 
-class Gods(Enum):
+class Gods():
     ALVIR_VALMIR = "Alvir and Valmir"
     ELNIR = "Elnir"
     LACUNA = "Lacuna"
@@ -30,7 +30,7 @@ class Gods(Enum):
     THREE_FORTUNES = "The Three Fortunes"
     TYRNAI = "Tyrnai"
 
-class Books(Enum):
+class Books():
     WTK = "The War-Torn Kingdom"
     CGG = "Cities of Gold and Glory"
     BDS = "Over the Blood Dark Sea"
