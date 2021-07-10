@@ -1,0 +1,50 @@
+{
+  "character": {
+    "name": "Liana The Swift",
+    "bio": "Liana prefers to make her home in mountain grottos and woodland groves rather than in the squalid streets of cities. She has the agility of a gazelle, the cunning of a fox and the ferocity of an eagle. Despite her wild streak, she has a knack of making friends, for people sense that she is honest and trustworthy.",
+    "profession": "Wayfarer",
+    "rank": 1,
+    "stamina": 9,
+    "max_stamina": 9,
+    "abilities": {
+      "charisma": 2,
+      "combat": 5,
+      "magic": 2,
+      "sanctity": 3,
+      "scouting": 6,
+      "thievery": 4
+    },
+    "shards": 16,
+    "banked_shards": 0,
+    "resurrection": null,
+    "god": null,
+    "location": {
+      "book": "The War-Torn Kingdom",
+      "section": "1"
+    },
+    "inventory": [
+      {
+        "name": "Spear",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Map",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Leather Jerkin",
+        "ability": "Defence",
+        "value": 1
+      }
+    ],
+    "notes": [],
+    "blessings": [],
+    "titles": [],
+    "codewords": [],
+    "checkboxes": {},
+    "investments": {},
+    "storage": {}
+  }
+}

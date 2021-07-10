@@ -1,0 +1,50 @@
+{
+  "character": {
+    "name": "Andriel The Hammer",
+    "bio": "Andriel seeks fame through adventure and the glory of battle. He left his homeland when an extended outbreak of peace made his skills redundant there. He is blunt and outspoken, but scrupulously follows the warrior’s code. If someone crosses him, he will use all the means at his disposal to get revenge.",
+    "profession": "Warrior",
+    "rank": 1,
+    "stamina": 9,
+    "max_stamina": 9,
+    "abilities": {
+      "charisma": 3,
+      "combat": 6,
+      "magic": 2,
+      "sanctity": 4,
+      "scouting": 3,
+      "thievery": 2
+    },
+    "shards": 16,
+    "banked_shards": 0,
+    "resurrection": null,
+    "god": null,
+    "location": {
+      "book": "The War-Torn Kingdom",
+      "section": "1"
+    },
+    "inventory": [
+      {
+        "name": "Battle-Axe",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Map",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Leather Jerkin",
+        "ability": "Defence",
+        "value": 1
+      }
+    ],
+    "notes": [],
+    "blessings": [],
+    "titles": [],
+    "codewords": [],
+    "checkboxes": {},
+    "investments": {},
+    "storage": {}
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "character": {
+    "name": "Chalor The Exiled One",
+    "bio": "Chalor is an outcast by choice, shunning his native land and the family who spurned him, driven by a burning desire for secret knowledge. His goal is to become one of the mightiest wizards of the world, and he is determined that nothing will stand in his way.",
+    "profession": "Mage",
+    "rank": 1,
+    "stamina": 9,
+    "max_stamina": 9,
+    "abilities": {
+      "charisma": 2,
+      "combat": 2,
+      "magic": 6,
+      "sanctity": 1,
+      "scouting": 5,
+      "thievery": 3
+    },
+    "shards": 16,
+    "banked_shards": 0,
+    "resurrection": null,
+    "god": null,
+    "location": {
+      "book": "The War-Torn Kingdom",
+      "section": "1"
+    },
+    "inventory": [
+      {
+        "name": "Staff",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Map",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Leather Jerkin",
+        "ability": "Defence",
+        "value": 1
+      }
+    ],
+    "notes": [],
+    "blessings": [],
+    "titles": [],
+    "codewords": [],
+    "checkboxes": {},
+    "investments": {},
+    "storage": {}
+  }
+}

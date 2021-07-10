@@ -1,0 +1,50 @@
+{
+  "character": {
+    "name": "Astariel Skysong",
+    "bio": "Astariel has the wanderlust, and chafes if he has to remain in one place for any length of time. He enjoys the freedom of the open road and the thought that he never knows what adventures each new day will bring. He lives by his wits and is a familiar figure at tavern firesides, where he regales travelers with his tales.",
+    "profession": "Troubadour",
+    "rank": 1,
+    "stamina": 9,
+    "max_stamina": 9,
+    "abilities": {
+      "charisma": 6,
+      "combat": 3,
+      "magic": 4,
+      "sanctity": 3,
+      "scouting": 2,
+      "thievery": 4
+    },
+    "shards": 16,
+    "banked_shards": 0,
+    "resurrection": null,
+    "god": null,
+    "location": {
+      "book": "The War-Torn Kingdom",
+      "section": "1"
+    },
+    "inventory": [
+      {
+        "name": "Sword",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Map",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Leather Jerkin",
+        "ability": "Defence",
+        "value": 1
+      }
+    ],
+    "notes": [],
+    "blessings": [],
+    "titles": [],
+    "codewords": [],
+    "checkboxes": {},
+    "investments": {},
+    "storage": {}
+  }
+}
