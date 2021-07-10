@@ -312,6 +312,10 @@ class Character:
 
 
     def save(self):
+        inventory = []
+        for item in self.inventory:
+            inventory.append(item.json)
+        inventory = json.dumps(inventory, indent=2).replace('\n', '\n    ')
         notes = json.dumps(self.notes, indent=2).replace('\n', '\n    ')
         blessings = json.dumps(self.blessings, indent=2).replace('\n', '\n    ')
         titles = json.dumps(self.titles, indent=2).replace('\n', '\n    ')
@@ -319,6 +323,14 @@ class Character:
         checkboxes = json.dumps(self.checkboxes, indent=2).replace('\n', '\n    ')
         investments = json.dumps(self.investments, indent=2).replace('\n', '\n    ')
         storage = json.dumps(self.storage, default=vars, indent=2).replace('\n', '\n    ')
+        if self.god:
+            god = f'"{self.god}"'
+        else:
+            god = 'null'
+        if self.resurrection:
+            resurrection = f'"{self.resurrection}"'
+        else:
+            resurrection = 'null'
 
         return (
             f'{{\n'
@@ -339,12 +351,13 @@ class Character:
             f'    }},\n'
             f'    "shards": {self.shards},\n'
             f'    "banked_shards": {self.banked_shards},\n'
-            f'    "resurrection": "{self.resurrection}",\n'
-            f'    "god": "{self.god}",\n'
+            f'    "resurrection": {resurrection},\n'
+            f'    "god": {god},\n'
             f'    "location": {{\n'
             f'      "book": "{self.location.book}",\n'
             f'      "section": "{self.location.section}"\n'
             f'    }},\n'
+            f'    "inventory": {inventory},\n'
             f'    "notes": {notes},\n'
             f'    "blessings": {blessings},\n'
             f'    "titles": {titles},\n'
@@ -374,6 +387,9 @@ class Character:
 
         self.location = Location(character['location']['book'], character['location']['section'])
 
+        for item in character['inventory']:
+            i = Item(item['name'], item['ability'], item['value'])
+            self.add_item(i)
         for note in character['notes']:
             self.add_note(note)
         for blessing in character['blessings']:

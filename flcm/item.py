@@ -9,3 +9,7 @@ class Item:
         if self.name == other.name and self.ability == other.ability and self.value == other.value:
             return True
         return False
+
+    @property
+    def json(self):
+        return {"name": self.name, "ability": self.ability, "value": self.value}
