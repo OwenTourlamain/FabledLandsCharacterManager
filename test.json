@@ -1,0 +1,87 @@
+{
+  "character": {
+    "name": "Test",
+    "bio": "Bio",
+    "profession": "Mage",
+    "rank": 1,
+    "stamina": 10,
+    "max_stamina": 10,
+    "abilities": {
+      "charisma": 1,
+      "combat": 2,
+      "magic": 3,
+      "sanctity": 4,
+      "scouting": 5,
+      "thievery": 6
+    },
+    "shards": 10,
+    "banked_shards": 0,
+    "resurrection": null,
+    "god": null,
+    "location": {
+      "book": "The War-Torn Kingdom",
+      "section": "1"
+    },
+    "inventory": [
+      {
+        "name": "Sword2",
+        "ability": null,
+        "value": null
+      },
+      {
+        "name": "Leather Armour",
+        "ability": "Defence",
+        "value": 1
+      }
+    ],
+    "notes": [
+      "note1",
+      "note2",
+      "note3",
+      "note4"
+    ],
+    "blessings": [
+      "blessing1",
+      "blessing2",
+      "blessing3",
+      "blessing4"
+    ],
+    "titles": [
+      "title1",
+      "title2",
+      "title3",
+      "title4"
+    ],
+    "codewords": [
+      "cw1",
+      "cw2",
+      "cw3",
+      "cw4"
+    ],
+    "checkboxes": {
+      "The War-Torn Kingdom, section: 1": 3,
+      "The War-Torn Kingdom, section: 2": 1,
+      "The War-Torn Kingdom, section: 3": 1
+    },
+    "investments": {
+      "The War-Torn Kingdom, section: 3": 5
+    },
+    "storage": {
+      "The War-Torn Kingdom, section: 4": {
+        "shards": 0,
+        "items": [
+          {
+            "name": "Sword",
+            "ability": null,
+            "value": null
+          },
+          {
+            "name": "Map",
+            "ability": "Scouting",
+            "value": 3
+          }
+        ]
+      }
+    }
+  }
+}

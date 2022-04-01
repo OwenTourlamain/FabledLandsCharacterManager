@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Fabled Lands Character Manager</title>
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div class="background">
+    </div>
+    <div class="menu">
+      <div class="tab">
+        {% for book in books) %}
+          <button class="tablinks" onclick="openPage(event, 'book{{ loop.index }}')">{{ book }}</button>
+        {% endfor %}
+      </div>
+
+      {% for book in books %}
+        <div id="{{ books[i] }}" class="tabcontent">
+          <h3>London</h3>
+          <p>London is the capital city of England.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
