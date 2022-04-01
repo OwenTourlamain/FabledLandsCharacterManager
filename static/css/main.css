@@ -1,0 +1,38 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.background {
+  background-image: url(/images/background.jpg);
+  height: 100%;
+  width: 100%;
+  filter: blur(3px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menu {
+  position: absolute;
+  left: 0px;
+  top: 10%;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  display: block;
+  width: 75%;
+  margin: 1em auto;
+  text-align: center;
+  padding: 2em;
+  text-decoration: none;
+  color: inherit;
+  background: white;
+  border: 3px solid black;
+}
