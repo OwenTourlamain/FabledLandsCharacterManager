@@ -9,7 +9,7 @@
     </div>
     <div class="menu">
       <div class="tab">
-        {% for book in books) %}
+        {% for book in books %}
           <button class="tablinks" onclick="openPage(event, 'book{{ loop.index }}')">{{ book }}</button>
         {% endfor %}
       </div>
